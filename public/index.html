@@ -596,7 +596,7 @@
 <!-- NAV -->
 <nav>
   <div class="nav-logo">Grandeur <span>Circle</span></div>
-  <a href="#waitlist" class="nav-cta">Join the waitlist</a>
+  <a href="https://tally.so/r/gDQN1l" target="_blank" class="nav-cta">Join the waitlist</a>
 </nav>
 
 <!-- HERO -->
@@ -613,14 +613,10 @@
       </strong>
     </div>
 
-    <div id="form-wrap">
-      <div class="waitlist-form" style="margin-bottom:14px;">
-        <input class="waitlist-input" type="email" id="email-hero" placeholder="Enter your email address" />
-        <button class="waitlist-btn" onclick="handleSubmit('email-hero','form-wrap','success-hero')">Secure my spot</button>
-      </div>
+    <div>
+      <a href="https://tally.so/r/gDQN1l" target="_blank" class="waitlist-btn" style="display:inline-block; text-decoration:none; margin-bottom:14px;">Secure my spot</a>
       <p class="waitlist-meta">Join <span>60+ early testers</span> already onboarded &nbsp;·&nbsp; No spam, ever</p>
     </div>
-    <div class="success-msg" id="success-hero">You're on the list — welcome to Grandeur Circle.</div>
   </div>
 </section>
 
@@ -794,14 +790,10 @@
   <h2>Be first through the door.</h2>
   <p class="cta-sub">Full access opens soon. Join the waitlist for priority access and updates straight to your inbox.</p>
 
-  <div id="form-wrap-2">
-    <div class="waitlist-form" style="justify-content:center; margin-bottom:14px;">
-      <input class="waitlist-input" type="email" id="email-cta" placeholder="Enter your email address" />
-      <button class="waitlist-btn" onclick="handleSubmit('email-cta','form-wrap-2','success-cta')">Join the waitlist</button>
-    </div>
-    <p class="waitlist-meta" style="text-align:center;">No spam. Unsubscribe any time. &nbsp;·&nbsp; <span>grandeurcircle.com</span></p>
+  <div>
+    <a href="https://tally.so/r/gDQN1l" target="_blank" class="waitlist-btn" style="display:inline-block; text-decoration:none; margin-bottom:14px;">Join the waitlist</a>
+    <p class="waitlist-meta" style="text-align:center; margin-top:4px;">No spam. Unsubscribe any time. &nbsp;·&nbsp; <span>grandeurcircle.com</span></p>
   </div>
-  <div class="success-msg" id="success-cta" style="margin:0 auto;">You're on the list — welcome to Grandeur Circle.</div>
 </section>
 
 <!-- FOOTER -->
@@ -816,23 +808,6 @@
   <p class="footer-copy">© 2026 Grandeur Circle · grandeurcircle.com · London, UK</p>
 </footer>
 
-<script>
-  function handleSubmit(inputId, wrapId, successId) {
-    var email = document.getElementById(inputId).value;
-    if (!email || !email.includes('@')) {
-      document.getElementById(inputId).style.borderColor = '#E24B4A';
-      return;
-    }
-    document.getElementById(wrapId).style.display = 'none';
-    document.getElementById(successId).style.display = 'block';
-  }
 
-  document.getElementById('email-hero').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') handleSubmit('email-hero','form-wrap','success-hero');
-  });
-  document.getElementById('email-cta').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') handleSubmit('email-cta','form-wrap-2','success-cta');
-  });
-</script>
 </body>
 </html>
