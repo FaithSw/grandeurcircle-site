@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grandeur Circle — Arrive. Belong. Thrive.</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue-primary: #4C9DFF;
+    --blue-secondary: #3282EC;
+    --orange: #F5A524;
+    --dark: #121212;
+    --muted: #476385;
+    --bg-light: #E6F1FF;
+    --white: #ffffff;
+    --border: rgba(76, 157, 255, 0.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--white);
+    color: var(--dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 6%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--dark);
+    letter-spacing: -0.01em;
+  }
+
+  .nav-logo span { color: var(--blue-primary); }
+
+  .nav-cta {
+    background: var(--blue-primary);
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 9px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .nav-cta:hover { background: var(--blue-secondary); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: var(--bg-light);
+    display: flex;
+    align-items: center;
+    padding: 100px 6% 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(76,157,255,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 680px;
+    position: relative;
+  }
+
+  .hero-label {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue-primary);
+    margin-bottom: 24px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(38px, 5.5vw, 62px);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--dark);
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--blue-primary);
+  }
+
+  .hero-reality {
+    font-size: 16px;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.8;
+    max-width: 520px;
+    margin-bottom: 40px;
+  }
+
+  .hero-reality strong {
+    display: block;
+    color: var(--dark);
+    font-weight: 400;
+    margin-top: 16px;
+    font-size: 15px;
+  }
+
+  /* FORM */
+  .waitlist-wrap { margin-bottom: 16px; }
+
+  .waitlist-form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .waitlist-input {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    padding: 13px 18px;
+    border: 1.5px solid rgba(76,157,255,0.3);
+    border-radius: 6px;
+    background: #fff;
+    color: var(--dark);
+    width: 280px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .waitlist-input:focus { border-color: var(--blue-primary); }
+  .waitlist-input::placeholder { color: #9BB5CC; font-weight: 300; }
+
+  .waitlist-btn {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 13px 28px;
+    border-radius: 6px;
+    background: var(--orange);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    letter-spacing: 0.01em;
+  }
+
+  .waitlist-btn:hover { background: #e09420; }
+  .waitlist-btn:active { transform: scale(0.98); }
+
+  .waitlist-meta {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  .waitlist-meta span { color: var(--blue-primary); font-weight: 500; }
+
+  .success-msg {
+    display: none;
+    background: #EAF5ED;
+    border: 1px solid #9BD4A8;
+    color: #2E7D3C;
+    padding: 13px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    max-width: 400px;
+  }
+
+  /* PROOF */
+  .proof {
+    background: var(--dark);
+    padding: 22px 6%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+
+  .proof-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255,255,255,0.55);
+    font-size: 13px;
+    font-weight: 300;
+  }
+
+  .proof-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--blue-primary);
+    line-height: 1;
+  }
+
+  /* REALITY SECTION */
+  .reality {
+    padding: 100px 6%;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  @media (max-width: 768px) {
+    .reality { grid-template-columns: 1fr; gap: 40px; }
+  }
+
+  .reality-left {}
+
+  .section-tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue-primary);
+    margin-bottom: 16px;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 3.5vw, 40px);
+    font-weight: 700;
+    color: var(--dark);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+
+  .reality-body {
+    font-size: 15px;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+
+  .fragment-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 24px;
+  }
+
+  .fragment-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--dark);
+    font-weight: 400;
+  }
+
+  .fragment-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--blue-primary);
+    flex-shrink: 0;
+  }
+
+  .reality-right {
+    background: var(--bg-light);
+    border-radius: 12px;
+    padding: 40px;
+  }
+
+  .reality-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--dark);
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  .reality-quote-sub {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* WHAT WE BRING */
+  .features {
+    background: var(--dark);
+    padding: 100px 6%;
+  }
+
+  .features-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .features .section-tag { color: var(--blue-primary); }
+  .features h2 { color: #fff; margin-bottom: 12px; }
+
+  .features-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,0.45);
+    font-weight: 300;
+    max-width: 480px;
+    line-height: 1.7;
+    margin-bottom: 60px;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1px;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .feature-card {
+    padding: 32px;
+    background: rgba(255,255,255,0.02);
+    border-right: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    transition: background 0.2s;
+  }
+
+  .feature-card:hover { background: rgba(76,157,255,0.06); }
+
+  .feature-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    color: var(--blue-primary);
+    opacity: 0.6;
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+
+  .feature-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+
+  .feature-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* HOW IT WORKS */
+  .how {
+    padding: 100px 6%;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 40px;
+    margin-top: 60px;
+  }
+
+  .step {
+    position: relative;
+    padding-top: 20px;
+    border-top: 2px solid var(--bg-light);
+  }
+
+  .step.active-step { border-top-color: var(--blue-primary); }
+
+  .step-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--bg-light);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .active-step .step-num { color: var(--blue-primary); opacity: 0.3; }
+
+  .step-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 10px;
+  }
+
+  .step-desc {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* WHO */
+  .audience {
+    background: var(--bg-light);
+    padding: 100px 6%;
+  }
+
+  .audience-inner { max-width: 1100px; margin: 0 auto; }
+
+  .audience-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 60px;
+  }
+
+  .audience-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 32px;
+    border-left: 3px solid transparent;
+    transition: border-color 0.2s;
+  }
+
+  .audience-card:hover { border-left-color: var(--blue-primary); }
+  .audience-card.workers:hover { border-left-color: var(--orange); }
+
+  .audience-tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .audience-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .audience-desc {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.75;
+    margin-bottom: 20px;
+  }
+
+  .audience-points {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .audience-points li {
+    font-size: 13px;
+    color: var(--dark);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-weight: 400;
+  }
+
+  .audience-points li::before {
+    content: '';
+    display: block;
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--blue-primary);
+    margin-top: 8px;
+    flex-shrink: 0;
+  }
+
+  /* SDG */
+  .sdg {
+    padding: 32px 6%;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .sdg-label { font-size: 11px; color: var(--muted); font-weight: 400; letter-spacing: 0.05em; text-transform: uppercase; margin-right: 4px; }
+
+  .sdg-badge {
+    background: var(--bg-light);
+    color: var(--blue-secondary);
+    border-radius: 4px;
+    padding: 5px 11px;
+    font-size: 11px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  /* FINAL CTA */
+  .cta-final {
+    padding: 100px 6%;
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .cta-final h2 { margin-bottom: 16px; }
+
+  .cta-sub {
+    font-size: 15px;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 40px;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark);
+    padding: 32px 6%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .footer-logo span { color: var(--blue-primary); }
+
+  .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+  .footer-links a { font-size: 12px; color: rgba(255,255,255,0.4); text-decoration: none; font-weight: 300; }
+  .footer-links a:hover { color: var(--blue-primary); }
+
+  .footer-copy { font-size: 11px; color: rgba(255,255,255,0.2); width: 100%; text-align: center; margin-top: 8px; font-weight: 300; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-inner > * {
+    animation: fadeUp 0.6s ease forwards;
+    opacity: 0;
+  }
+
+  .hero-inner > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-inner > *:nth-child(2) { animation-delay: 0.2s; }
+  .hero-inner > *:nth-child(3) { animation-delay: 0.3s; }
+  .hero-inner > *:nth-child(4) { animation-delay: 0.4s; }
+  .hero-inner > *:nth-child(5) { animation-delay: 0.5s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Grandeur <span>Circle</span></div>
+  <a href="#waitlist" class="nav-cta">Join the waitlist</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-label">Now in beta · UK arrival platform</span>
+
+    <h1>They arrive with ambition.<br><em>Not with a system.</em></h1>
+
+    <div class="hero-reality">
+      Housing. Work. Documentation. Community.
+      <strong>
+        Grandeur Circle brings structure to the UK arrival journey — for international students, skilled workers, and global talent.
+      </strong>
+    </div>
+
+    <div id="form-wrap">
+      <div class="waitlist-form" style="margin-bottom:14px;">
+        <input class="waitlist-input" type="email" id="email-hero" placeholder="Enter your email address" />
+        <button class="waitlist-btn" onclick="handleSubmit('email-hero','form-wrap','success-hero')">Secure my spot</button>
+      </div>
+      <p class="waitlist-meta">Join <span>60+ early testers</span> already onboarded &nbsp;·&nbsp; No spam, ever</p>
+    </div>
+    <div class="success-msg" id="success-hero">You're on the list — welcome to Grandeur Circle.</div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<div class="proof">
+  <div class="proof-item"><div class="proof-num">60+</div><span>beta testers onboarded</span></div>
+  <div class="proof-item"><div class="proof-num">100+</div><span>user interviews</span></div>
+  <div class="proof-item"><div class="proof-num">3</div><span>UK universities consulted</span></div>
+  <div class="proof-item"><div class="proof-num">7+</div><span>core topics covered</span></div>
+</div>
+
+<!-- REALITY -->
+<section style="padding: 100px 0;">
+  <div class="reality">
+    <div class="reality-left">
+      <p class="section-tag">The problem</p>
+      <h2>Fragmented.<br>Reactive.<br>Unclear.</h2>
+      <p class="reality-body">
+        Arriving in the UK means navigating a system that was never designed to be navigated. Everything exists — but nothing connects.
+      </p>
+      <p class="reality-body">
+        Most people piece it together through Facebook groups, Reddit threads, and word of mouth. Some get it right. Many don't.
+      </p>
+      <ul class="fragment-list">
+        <li><div class="fragment-dot"></div>Housing — Right to Rent, deposits, area knowledge</li>
+        <li><div class="fragment-dot"></div>Work — visa rules, hour limits, compliant listings</li>
+        <li><div class="fragment-dot"></div>Healthcare — NHS registration, GP access by postcode</li>
+        <li><div class="fragment-dot"></div>Tax — NI numbers, HMRC, PAYE from day one</li>
+        <li><div class="fragment-dot"></div>Community — scam protection, local integration</li>
+      </ul>
+    </div>
+    <div class="reality-right">
+      <p class="reality-quote">"The information exists. It's just scattered across 12 different websites, 3 Facebook groups, and a WhatsApp chat from 2019."</p>
+      <p class="reality-quote-sub">This is what we heard across 100+ interviews with international students and skilled workers at UK universities. The problem isn't access to information. It's structure.</p>
+      <div style="margin-top:28px; padding-top:24px; border-top:1px solid rgba(76,157,255,0.15);">
+        <p style="font-size:13px; color:var(--blue-primary); font-weight:600; margin-bottom:6px;">Grandeur Circle brings structure to this.</p>
+        <p style="font-size:13px; color:var(--muted); font-weight:300; line-height:1.7;">One platform. Postcode-aware. Arrival-stage sequenced. Visa-compliant.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="features-inner">
+    <p class="section-tag">What the platform brings together</p>
+    <h2>Everything in one place.<br>In the right order.</h2>
+    <p class="features-sub">We sequence content by arrival stage — so you always see what matters, when it matters.</p>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-num">01</div>
+        <div class="feature-title">Arrival & housing</div>
+        <p class="feature-desc">Right to Rent guidance, council area info, and postcode-personalised local guides from day one.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">02</div>
+        <div class="feature-title">Compliant job access</div>
+        <p class="feature-desc">Verified, localised listings with built-in visa work-hour filters. Every job you see is legal for your visa type.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">03</div>
+        <div class="feature-title">Healthcare setup</div>
+        <p class="feature-desc">NHS GP registration and dental access by postcode — sorted before you need it.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">04</div>
+        <div class="feature-title">Compliance & tax</div>
+        <p class="feature-desc">National Insurance, HMRC tax codes, PAYE — explained simply from your first week.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">05</div>
+        <div class="feature-title">Education & family</div>
+        <p class="feature-desc">School applications, childcare guidance, and education pathways for you and your dependants.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">06</div>
+        <div class="feature-title">Scam protection</div>
+        <p class="feature-desc">Real-time alerts on phishing, fraudulent listings, and common traps targeting new arrivals.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <p class="section-tag">How it works</p>
+  <h2>Structure, not noise.</h2>
+
+  <div class="steps">
+    <div class="step active-step">
+      <div class="step-num">01</div>
+      <div class="step-title">Tell us where you're landing</div>
+      <p class="step-desc">Enter your UK postcode and arrival date. Everything personalises instantly.</p>
+    </div>
+    <div class="step active-step">
+      <div class="step-num">02</div>
+      <div class="step-title">Follow your arrival checklist</div>
+      <p class="step-desc">A 30-day structured checklist walks you through every task in the right order.</p>
+    </div>
+    <div class="step active-step">
+      <div class="step-num">03</div>
+      <div class="step-title">Access verified opportunities</div>
+      <p class="step-desc">Jobs, housing, and community resources — filtered and verified for your visa type.</p>
+    </div>
+    <div class="step active-step">
+      <div class="step-num">04</div>
+      <div class="step-title">Settle with confidence</div>
+      <p class="step-desc">The platform stays with you beyond the first weeks. Not a one-time guide.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHO -->
+<section class="audience">
+  <div class="audience-inner">
+    <p class="section-tag">Who it's for</p>
+    <h2>Built for three audiences.<br>Working as one system.</h2>
+
+    <div class="audience-grid">
+      <div class="audience-card students">
+        <p class="audience-tag">International students</p>
+        <h3 class="audience-title">Starting university in the UK</h3>
+        <p class="audience-desc">Navigate your first weeks with a personalised checklist and compliant part-time job listings filtered for your visa.</p>
+        <ul class="audience-points">
+          <li>Visa-compliant job listings (20hr/week filter)</li>
+          <li>Student bank account & NI guidance</li>
+          <li>NHS registration by postcode</li>
+          <li>Local community connections</li>
+        </ul>
+      </div>
+      <div class="audience-card workers">
+        <p class="audience-tag">Skilled workers</p>
+        <h3 class="audience-title">Relocating on a work visa</h3>
+        <p class="audience-desc">Settle your family, understand your rights, and access local services — without piecing it together alone.</p>
+        <ul class="audience-points">
+          <li>Right to Rent checks & housing guidance</li>
+          <li>HMRC, PAYE & tax code setup</li>
+          <li>School applications for dependants</li>
+          <li>Scam alerts for new arrivals</li>
+        </ul>
+      </div>
+      <div class="audience-card unis">
+        <p class="audience-tag">Universities & institutions</p>
+        <h3 class="audience-title">Supporting international intake</h3>
+        <p class="audience-desc">Grandeur Circle complements your existing provision — helping your support efforts reach further and more consistently.</p>
+        <ul class="audience-points">
+          <li>Branded arrival journeys for your students</li>
+          <li>Postcode-aware local content delivery</li>
+          <li>Employer partnership referral network</li>
+          <li>Onboarding outcome analytics</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SDG -->
+<div class="sdg">
+  <span class="sdg-label">UN SDG alignment</span>
+  <span class="sdg-badge">SDG 8 · Decent Work</span>
+  <span class="sdg-badge">SDG 10 · Reduced Inequalities</span>
+  <span class="sdg-badge">SDG 11 · Sustainable Cities</span>
+  <span class="sdg-badge">SDG 4 · Quality Education</span>
+  <span class="sdg-badge">SDG 3 · Good Health</span>
+</div>
+
+<!-- FINAL CTA -->
+<section class="cta-final" id="waitlist">
+  <p class="section-tag" style="text-align:center;">Early access</p>
+  <h2>Be first through the door.</h2>
+  <p class="cta-sub">Full access opens soon. Join the waitlist for priority access and updates straight to your inbox.</p>
+
+  <div id="form-wrap-2">
+    <div class="waitlist-form" style="justify-content:center; margin-bottom:14px;">
+      <input class="waitlist-input" type="email" id="email-cta" placeholder="Enter your email address" />
+      <button class="waitlist-btn" onclick="handleSubmit('email-cta','form-wrap-2','success-cta')">Join the waitlist</button>
+    </div>
+    <p class="waitlist-meta" style="text-align:center;">No spam. Unsubscribe any time. &nbsp;·&nbsp; <span>grandeurcircle.com</span></p>
+  </div>
+  <div class="success-msg" id="success-cta" style="margin:0 auto;">You're on the list — welcome to Grandeur Circle.</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Grandeur <span>Circle</span></div>
+  <div class="footer-links">
+    <a href="#">About</a>
+    <a href="#">Privacy</a>
+    <a href="mailto:faithswiss@grandeurcircle.com">Contact</a>
+    <a href="https://app.grandeurcircle.com">Platform login</a>
+  </div>
+  <p class="footer-copy">© 2026 Grandeur Circle · grandeurcircle.com · London, UK</p>
+</footer>
+
+<script>
+  function handleSubmit(inputId, wrapId, successId) {
+    var email = document.getElementById(inputId).value;
+    if (!email || !email.includes('@')) {
+      document.getElementById(inputId).style.borderColor = '#E24B4A';
+      return;
+    }
+    document.getElementById(wrapId).style.display = 'none';
+    document.getElementById(successId).style.display = 'block';
+  }
+
+  document.getElementById('email-hero').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') handleSubmit('email-hero','form-wrap','success-hero');
+  });
+  document.getElementById('email-cta').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') handleSubmit('email-cta','form-wrap-2','success-cta');
+  });
+</script>
+</body>
+</html>
